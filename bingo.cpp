@@ -1,55 +1,93 @@
 #include <iostream>
 #include <vector>
-#include <numeric>
+#include <algorithm>
+#include <fstream>
+#include <numeric> 
 #include <ctime>
 #include <cstdlib>
 
 using namespace std;
 
-int main() {
-    int manualAutomatico = 0;
-    int ciclo = 1;
-    int numerosbingo = 0;
+void showPanel(const vector<int>& sortedNumbers) {
+    cout << "Números sorteados: ";
+    for (int i = 0; i < sortedNumbers.size(); i++) {
+        cout << sortedNumbers[i] << " ";
+    }
+    cout << endl;
 
-    while (ciclo > 0) {
+    if (!sortedNumbers.empty()) {
+        cout << "Número sorteado: " << sortedNumbers.back() << endl;
+        if (sortedNumbers.size() > 1) {
+            cout << "Anterior: " << sortedNumbers[sortedNumbers.size() - 2] << endl;
+        }
+    }
+}
+
+void generateCard(int cardNumber, int numbersRange) {
+    vector<int> card(numbersRange);
+    iota(card.begin(), card.end(), 1);
+    random_shuffle(card.begin(), card.end());
+
+    ofstream file("card" + to_string(cardNumber) + ".txt");
+    int count = 0;
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            file << (count < numbersRange ? to_string(card[count]) : "x") << " ";
+            count++;
+        }
+        file << endl;
+    }
+    file.close();
+}
+
+int main() {
+    int numbersRange;
+    int manualAutomatico;
+    int cardCount;
+
+    cout << "Escolha a quantidade de números para o sorteio (75, 90, 100): ";
+    cin >> numbersRange;
+
+    srand(time(0)); // Seed the random number generator
+
+    vector<int> sortedNumbers;
+
+    while (true) {
         system("clear || cls");
 
-        cout << "Escolha a opção:\n" << endl;
-        cout << "1 - Sorteio Manual\n2 - Sorteio Automático\n3 - Gerar Cartões\n4 - Sair\n" << endl;
+        showPanel(sortedNumbers);
+
+        cout << "\nEscolha a opção:\n"
+             << "1 - Sorteio Manual\n"
+             << "2 - Sorteio Automático\n"
+             << "3 - Gerar Cartões\n"
+             << "4 - Sair\n"
+             << endl;
         cin >> manualAutomatico;
 
-        system("clear || cls");
-
-        if (manualAutomatico == 1){
-
-            
-            cout << "Escolha a quantidade de números para o sorteio (75, 90, 100): " << endl;
-            cin >> numerosbingo;
-
-            vector<int> meuVetor(numerosbingo);
-            iota(meuVetor.begin(), meuVetor.end(), 1);
-
-            for (int i = 0; i < ; i++) {
-                cout << numerosbingo << endl;
-                cout << meuVetor[i] << "";
-                cout << numerosbingo << endl;
+        if (manualAutomatico == 1) {
+            int novoNumero;
+            cout << "Digite o próximo número: ";
+            cin >> novoNumero;
+            sortedNumbers.push_back(novoNumero);
+        } else if (manualAutomatico == 2) {
+            int novoNumero = rand() % numbersRange + 1;
+            sortedNumbers.push_back(novoNumero);
+        } else if (manualAutomatico == 3) {
+            cout << "Quantos cartões você quer gerar? ";
+            cin >> cardCount;
+            for (int i = 1; i <= cardCount; i++) {
+                generateCard(i, numbersRange);
             }
-            cout << endl;
-
-
-        } else if (manualAutomatico == 2){
-           
-        } else if (manualAutomatico == 3){
-            
-        } else if (manualAutomatico == 4){
-            ciclo = 0;
+        } else if (manualAutomatico == 4) {
+            break;
         } else {
-            cout << "Escolha uma opção disponível: " << endl;
-            ciclo++;
+            cout << "Escolha uma opção válida." << endl;
         }
     }
 
     return 0;
 }
+
 
     
