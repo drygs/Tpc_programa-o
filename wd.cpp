@@ -1,31 +1,42 @@
 #include <iostream>
 #include <vector>
-#include <iomanip>
-#include <numeric>
-
+#include <string>
 using namespace std;
 
-void showNumbersGrid(const vector<int>& numbers, int columns) {
-    int maxWidth = to_string(numbers.back()).length(); // Largura máxima baseada no maior número
-
-    for (int i = 0; i < numbers.size(); i++) {
-        cout << setw(maxWidth) << numbers[i] << " ";
-        
-        // Adiciona uma quebra de linha após cada "columns" números
-        if ((i + 1) % columns == 0) {
-            cout << endl;
-        }
-    }
+string formatarNumeroEmVermelho(int numero) {
+    return "\033[31m" + to_string(numero) + "\033[0m";
 }
 
 int main() {
-    vector<int> myNumbers(100);
-
-    iota(myNumbers.begin(), myNumbers.end(), 1);  // Começa de 1
-
-    // Chama a função para mostrar os números no formato de grade
-    showNumbersGrid(myNumbers, 20);
+    vector<int> meusNumeros = {1, 2, 3, 4, 5};
+    vector<std::string> vetorColorido;
+    int a = 5;
+    int b = 1;
+    for(int i = 1; i < 6 ; i++){
+    int numeroDestacado = b++;
+    
+    for(int i = 0; i < 5; i++){
+    // Criando o vetor colorido
+        for (const auto& numero : meusNumeros) {
+            std::string elemento = (numero == numeroDestacado) ? formatarNumeroEmVermelho(numero) : std::to_string(numero);
+            vetorColorido.push_back(elemento);
+        }
+        
+    
+    // Imprimindo o vetor colorido
+        std::cout << "Vetor colorido: ";
+        for (const auto& elemento : vetorColorido) {
+            std::cout << elemento << " ";
+        }
+        std::cout << std::endl;
+        cin.get();
+    }
+    ;
+    
 
     return 0;
 }
+}
 
+
+// entender isto pra conseguir mudar a cor dos numeros no outro

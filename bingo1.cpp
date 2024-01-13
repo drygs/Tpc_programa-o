@@ -34,6 +34,7 @@ int main(){
     int nSorteado;
     int nSelecionado;
     int cicloBingo = 1;
+    int sorteioAnterior;
 
 
     srand(time(0));
@@ -51,49 +52,50 @@ int main(){
 
         system("clear || cls");
 
-    for(int j = 0; j < cicloBingo; j++){
+        for(int j = 0; j < cicloBingo; j++){
+            
+            vector<int> meusNumeros(bingoNumeros);
+            iota(meusNumeros.begin(), meusNumeros.end(), 1);
 
-        vector<int> meusNumeros(bingoNumeros);
-        iota(meusNumeros.begin(), meusNumeros.end(), 1);
-
-        cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
-        showNumbersGrid(meusNumeros, 20);
-        cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n" << endl;
+            cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
+            showNumbersGrid(meusNumeros, 20);
+            cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n" << endl;
 
 
 
-        if (manualAutomatico == 1){
-            int sorteioAnterior;
-            cout << "Sorteio anterior..: " << nSelecionado << endl;
-            int nSorteado = rand() % bingoNumeros;
-            int nSelecionado = meusNumeros[nSorteado];
-            cout << "Sorteado..........: " << nSelecionado << endl;
-            cicloBingo++;
-            cout << "Pressione ENTER para sortear a proxima bola" << endl;
-            cin.get();
-            system("cls || clear");
-        
-        }else if (manualAutomatico == 2){
+            if (manualAutomatico == 1){
+                if( != 0){
+                    nSelecionado = sorteioAnterior;
+                    cout << "Sorteio anterior..: " << nSelecionado << endl;
+                    int nSorteado = rand() % bingoNumeros;
+                    int nSelecionado = meusNumeros[nSorteado];
+                    cout << "Sorteado..........: " << nSelecionado << endl;
+                    sorteioAnterior = nSelecionado;
+                    nSelecionado = 0;
+                    cicloBingo++;
+                    cout << "Pressione ENTER para sortear a proxima bola" << endl;
+                    cin.get();
+                    system("cls || clear");
+                }else{
+                    cout << "repete" << endl;
+                }
+            }else if (manualAutomatico == 2){
             
 
-        }else if (manualAutomatico == 3){
-            cout << "Quantos cartões você quer gerar? ";
-            cin >> cardCount;
+            }else if (manualAutomatico == 3){
+                cout << "Quantos cartões você quer gerar? ";
+                cin >> cardCount;
 
-            for (int i = 1; i <= cardCount; i++) {
+                for (int i = 1; i <= cardCount; i++) {
 
+                }
+            }else if (manualAutomatico == 4){
+                break;
+            }else{
+                cout << "Escolha uma opção válida." << endl;
+                ciclo++;
             }
-        }else if (manualAutomatico == 4){
-            break;
-        }else{
-            cout << "Escolha uma opção válida." << endl;
-            ciclo++;
         }
-
     }
-    
-        
-    }
-
     return 0;
 }
