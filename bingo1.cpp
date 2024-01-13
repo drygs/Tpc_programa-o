@@ -64,7 +64,7 @@ int main(){
 
 
             if (manualAutomatico == 1){
-                if( != 0){
+                if(nSelecionado != 0){
                     nSelecionado = sorteioAnterior;
                     cout << "Sorteio anterior..: " << nSelecionado << endl;
                     int nSorteado = rand() % bingoNumeros;
