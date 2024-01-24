@@ -132,12 +132,15 @@ int main() {
                 cout << "Quantos cartoes pertende gerar? " << endl;
                 cin >> numerosCartoes;
                 for (int i = 1; i <= numerosCartoes; i++) {
+                    for(int j = 0;j <= 24; j++) {
+                        int arraycartão = rand() % bingoNumeros;
+                    }
                     ofstream file("cartao" + to_string(i) + ".txt");
                     if (file.is_open()) {
 
-                        file << "Conteúdo do cartão " << i << "\n";
+                        file << arraycartão << "\n";
                         file.close();
-                        cout << ;
+                        cout << "cartõs gerados com sucesso" << endl;
                     } else {
                         cout << "Erro ao abrir o arquivo para o cartão " << i << endl;
                     }
