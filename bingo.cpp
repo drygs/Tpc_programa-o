@@ -11,39 +11,24 @@
 
 using namespace std;
 
-// Function to format number in red
 string numeroEmVermelho(int destaque) {
     return "\033[31m" + to_string(destaque) + "\033[0m";
 }
 
-// Function to generate bingo cards
-void ncartoes(int numerosCartoes) {
-    for (int i = 1; i <= numerosCartoes; i++) {
-        // Logic to generate cards - adjust as necessary
-        ofstream file("cartao" + to_string(i) + ".txt");
-        if (file.is_open()) {
-            // Write card data to the file
-            file << "Conteúdo do cartão " << i << "\n";
-            file.close();
-            cout << "Cartão " << i << " gerado com sucesso.\n";
-        } else {
-            cerr << "Erro ao abrir o arquivo para o cartão " << i << ".\n";
-        }
-    }
-}
-
-// Function to display numbers grid
-void showNumbersGrid(const vector<string>& coloredNumbers, int columns) {
+void showNumbersGrid(const vector<string>& vetorcolorido, int columns) {
     const int fixedWidth = 3;
 
-    for (int i = 0; i < coloredNumbers.size(); i++) {
-        cout << setw(fixedWidth) << setfill(' ') << coloredNumbers[i] << " ";
+    for (int i = 1; i < vetorcolorido.size(); i++) {
+        cout << setw(fixedWidth) << setfill(' ') << right << vetorcolorido[i] << " ";
 
         if ((i + 1) % columns == 0) {
             cout << endl;
         }
     }
 }
+
+
+
 
 int main() {
     int manualAutomatico;
@@ -52,20 +37,38 @@ int main() {
     int cicloBingo = 1;
     int sorteioAnterior = 0;
     int anterior = 0;
+    const int fixedWidth = 3;
     int numerosCartoes = 1;
+    string blue = "\033[1;34m";
+    string resetColor = "\033[0m";
 
     srand(time(0));
 
     for (int i = 0; i < ciclo; i++) {
         system("clear || cls");
 
-        cout << "\nEscolha a opção:\n\n1 - Sorteio Manual\n2 - Sorteio Automático\n3 - Gerar Cartões\n4 - Sair\n" << endl;
+        cout << blue << "\nEscolha a opção:\n\n1 - Sorteio Manual \n2 - Sorteio Automático\n3 - Gerar Cartões\n4 - Sair\n" << resetColor << endl;
         cin >> manualAutomatico;
         system("clear || cls");
 
         if (manualAutomatico == 1 || manualAutomatico == 2) {
             cout << "Escolha a quantidade de números (75, 90, 100): " << endl;
             cin >> bingoNumeros;
+
+            if(bingoNumeros == 100){
+                bingoNumeros = 101;
+            }
+            else if(bingoNumeros == 90){
+                bingoNumeros = 91;
+            }
+            else if(bingoNumeros == 75){
+                bingoNumeros = 76;
+            }else{
+                cout << "Escolha uma opção disponivel" << endl; 
+            }
+
+
+
         } else {
             system("clear || cls");
         }
@@ -82,7 +85,7 @@ int main() {
         }
 
         for (int j = 0; j < cicloBingo; j++) {
-            cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
+            cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n" << endl;
             showNumbersGrid(vetorColorido, 20);
             cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n" << endl;
 
@@ -117,7 +120,7 @@ int main() {
                     sorteioAnterior = nSelecionado;
                     vetorColorido[nSorteado] = numeroEmVermelho(nSorteado);
                     meusNumeros[nSorteado] = 0;
-                    sleep(2);
+                    sleep(1);
                     cicloBingo++;
                     system("cls || clear");
                 } else {
@@ -125,9 +128,21 @@ int main() {
                     system("cls || clear");
                 }
             } else if (manualAutomatico == 3) {
+
                 cout << "Quantos cartoes pertende gerar? " << endl;
                 cin >> numerosCartoes;
-                ncartoes(numerosCartoes);
+                for (int i = 1; i <= numerosCartoes; i++) {
+                    ofstream file("cartao" + to_string(i) + ".txt");
+                    if (file.is_open()) {
+
+                        file << "Conteúdo do cartão " << i << "\n";
+                        file.close();
+                        cout << ;
+                    } else {
+                        cout << "Erro ao abrir o arquivo para o cartão " << i << endl;
+                    }
+                }
+                cin >> numerosCartoes;;
             } else if (manualAutomatico == 4) {
                 break;
             } else {
