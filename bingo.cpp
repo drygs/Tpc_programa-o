@@ -8,8 +8,10 @@
 #include <iomanip>
 #include <unistd.h>
 #include <fstream>
+#include <random>
 
 using namespace std;
+
 
 string numeroEmVermelho(int destaque) {
     return "\033[31m" + to_string(destaque) + "\033[0m";
@@ -41,6 +43,8 @@ int main() {
     int numerosCartoes = 1;
     string blue = "\033[1;34m";
     string resetColor = "\033[0m";
+    int arraycartão[100];
+    int contador;
 
     srand(time(0));
 
@@ -51,7 +55,7 @@ int main() {
         cin >> manualAutomatico;
         system("clear || cls");
 
-        if (manualAutomatico == 1 || manualAutomatico == 2) {
+        if (manualAutomatico == 1 || manualAutomatico == 2 || manualAutomatico == 3) {
             cout << "Escolha a quantidade de números (75, 90, 100): " << endl;
             cin >> bingoNumeros;
 
@@ -131,6 +135,10 @@ int main() {
 
                 cout << "Quantos cartoes pertende gerar? " << endl;
                 cin >> numerosCartoes;
+                // FALTA O SHUFLE OU SEJA BARALHAR OS NUMEROS.
+                for(int i = 0; i < bingoNumeros; i++){
+                    arraycartão[i] = i;
+                }
                 for (int i = 1; i <= numerosCartoes; i++) {
                     for(int j = 0;j <= 24; j++) {
                         int arraycartão = rand() % bingoNumeros;
@@ -138,7 +146,11 @@ int main() {
                     ofstream file("cartao" + to_string(i) + ".txt");
                     if (file.is_open()) {
 
-                        file << arraycartão << "\n";
+                        file << arraycartão[1] << arraycartão[2] << arraycartão[3] << arraycartão[4] << arraycartão[5] <<"\n"
+                             << arraycartão[6] << arraycartão[7] << arraycartão[8] << arraycartão[9] << arraycartão[10] << "\n"
+                             << arraycartão[11] << arraycartão[12] << "  " << arraycartão[13] << arraycartão[14] <<"\n"
+                             << arraycartão[15] << arraycartão[16] << arraycartão[17] << arraycartão[18] << arraycartão[20]<<"\n"
+                             << arraycartão[21] << arraycartão[22] << arraycartão[23] << arraycartão[24] << arraycartão[25] << endl;
                         file.close();
                         cout << "cartõs gerados com sucesso" << endl;
                     } else {
